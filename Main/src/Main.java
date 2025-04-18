@@ -9,21 +9,7 @@ public class Main {
 	static int window[][];
 	
 	public static void main(String args[]) throws IOException{
-		n = nex();
-		l = nex();
-		window = new int[n][2];
-		window[0][0] = nex();
-		bw.write(window[0][0]+" ");
-		for(int i = 1; i < n; i++) {
-			int t = nex();
-			if(window[left][0]>t) {
-				left = right = i;
-				window[left][0] = t;
-				window[left][1] = i;
-			}
-			else if(window[right][0]>t);
-			bw.write(window[left][0]+" ");
-		}
+		System.out.println("hello world "+ nex());
 	}
 	
 	static int nex() throws IOException{
