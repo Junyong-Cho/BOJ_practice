@@ -6,6 +6,8 @@ public class Main {
 	
 	static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 	
+	static int n;
+	
 	public static void main(String args[]) throws IOException{
 		
 	}
