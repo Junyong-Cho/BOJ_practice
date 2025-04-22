@@ -7,11 +7,23 @@ public class Main {
 	//boj.kr/2482
 	static public void main(String catchsunpie[]) throws IOException{
 		n = nex();
-		dp = new int[n>>1];
+		dp = new int[(n>>1)+1];
 		if(n%2==0) dp[n>>1] = 2;
 		else dp[n>>1] = n;
+		dp[1] = n;
 		
 		goal = nex();
+		
+		if(goal>n>>1) {
+			System.out.println(0);
+			return;
+		}
+		
+		for(int i = n>>1; i >= goal; i--) {
+			
+		}
+		
+		System.out.println(dp[goal]);
 	}
 	
 	static int nex() throws IOException{
