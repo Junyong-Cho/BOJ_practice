@@ -2,8 +2,16 @@ import java.io.IOException;
 
 public class Main {
 	
+	static int n, dp[], goal;
+	
+	//boj.kr/2482
 	static public void main(String catchsunpie[]) throws IOException{
+		n = nex();
+		dp = new int[n>>1];
+		if(n%2==0) dp[n>>1] = 2;
+		else dp[n>>1] = n;
 		
+		goal = nex();
 	}
 	
 	static int nex() throws IOException{
