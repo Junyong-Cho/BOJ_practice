@@ -61,10 +61,11 @@ public class Main {
 			int t[] = pq.remove();
 			if(visit[t[0]]) continue;
 			visit[t[0]] = true;
-			if(t[1]==dist||++vc==n) break;
+			if(t[0]==dist||++vc==n) break;
 			for(int i = 1; i <=n; i++) {
 				if(nodes[src][t[0]]+nodes[t[0]][i]<nodes[src][i]) {
 					nodes[src][i] = nodes[src][t[0]]+nodes[t[0]][i];
+					pq.add(new int[] {i,nodes[src][i]});
 					no[i] = new Node(i,no[t[0]]);
 				}
 			}
@@ -78,12 +79,12 @@ public class Main {
 	}
 	
 	static void route(Node n, int count) {
-		if(n.next==null) {
-			sb.append(count).append("\n").append(n.index).append(" ");
-			return;
+		if(n.next!=null) {
+			route(n.next, count+1);
 		}
-		else
-			route(n.next,count+1);
+		else {
+			sb.append(count).append("\n");
+		}
 		sb.append(n.index).append(" ");
 	}
 	
