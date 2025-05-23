@@ -7,10 +7,9 @@ public class Main {
 	
 	static int board[][][], ans = 300;
 	static int stars[][] = new int[5][2], size;
-	static int order[] = new int[5];
-	static int shape[][] = new int[5][2];
 	static boolean visit[][] = new boolean[7][7];
-	static boolean v[] = new boolean[5];
+	static int order[], link[][];
+	static boolean v[];
 
 	static public void main(String catchsunpie[]) throws IOException{
 		
@@ -37,10 +36,6 @@ public class Main {
 		board = new int[size][7][7];
 		
 		Arrays.fill(board[0][0] = board[0][6], -1);
-		Arrays.fill(visit[0] = visit[6], true);
-		
-		for(int i = 1; i < 6; i++)
-			visit[i][0] = visit[i][6] = true;
 		
 		for(int i = 1; i < size; i++)
 			board[i][0] = board[i][6] = board[0][0];
@@ -53,29 +48,52 @@ public class Main {
 		for(int i = 0; i < size; i++)
 			bfs(i,stars[i][0],stars[i][1]);
 		
+		Arrays.fill(visit[0] = visit[6], true);
+		for(int i = 1; i < 6; i++)
+			visit[i][0] = visit[i][6] = true;
+		
+		link = new int[size][2];
+		order = new int[size];
+		v = new boolean[size];
+		
+		if(size==5) 
+			for(int i = 2; i < 5; i++)
+				for(int j = 2; j < 5; j++) {
+					link[0][0] = i;
+					link[0][1] = j;
+					cross(i,j);
+				}
+		
 		for(int i = 1; i < 6; i++)
 			for(int j = 1; j < 6; j++) {
 				visit[i][j] = true;
-				shape[0][0] = i;
-				shape[0][1] = j;
-				tracking(i,j,1);
+				link[0][0] = i;
+				link[0][1] = j;
+				linking(i,j,1);
 			}
 		
 		System.out.println(ans);
 	}
 	
-	static void tracking(int r, int c, int len) {
+	static void cross(int r, int c) {
+		for(int i = 0; i < 4; i++) {
+			link[i+1][0] = r+dir[i][0];
+			link[i+1][1] = c+dir[i][1];
+		}
+		calc(0);
+	}
+	
+	static void linking(int r, int c, int len) {
 		if(len==size-1) {
-			
-			for(int i = 0; i < size-1; i++) {
-				for(int d[] : dir) {
-					if(visit[shape[i][0]+d[0]][shape[i][1]+d[1]]) continue;
-					shape[size-1][0] = shape[i][0]+d[0];
-					shape[size-1][1] = shape[i][1]+d[1];
+			for(int i = 0; i < len; i++)
+				for(int d[]: dir) {
+					int nr = link[i][0]+d[0];
+					int nc = link[i][1]+d[1];
+					if(visit[nr][nc]) continue;
+					link[len][0] = nr;
+					link[len][1] = nc;
 					calc(0);
 				}
-			}
-			
 			return;
 		}
 		
@@ -84,26 +102,28 @@ public class Main {
 			int nc = c+d[1];
 			if(visit[nr][nc]) continue;
 			visit[nr][nc] = true;
-			shape[len][0] = nr;
-			shape[len][1] = nc;
-			tracking(nr,nc,len+1);
+			link[len][0] = nr;
+			link[len][1] = nc;
+			linking(nr,nc,len+1);
 			visit[nr][nc] = false;
 		}
 	}
 	
-	static void calc(int odr) {
-		if(odr==size) {
+	static void calc(int or) {
+		if(or==size) {
 			int sum = 0;
 			for(int i = 0; i < size; i++)
-				sum += board[order[i]][shape[i][0]][shape[i][1]];
+				sum += board[order[i]][link[i][0]][link[i][1]];
+			
 			ans = min(ans,sum);
 			return;
 		}
+		
 		for(int i = 0; i < size; i++) {
 			if(v[i]) continue;
 			v[i] = true;
-			order[odr] = i;
-			calc(odr+1);
+			order[or] = i;
+			calc(or+1);
 			v[i] = false;
 		}
 	}
