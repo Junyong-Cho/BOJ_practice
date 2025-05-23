@@ -55,8 +55,10 @@ public class Main {
 		
 		for(int i = 1; i < 6; i++)
 			for(int j = 1; j < 6; j++) {
-				tracking(i,j,0);
 				visit[i][j] = true;
+				shape[0][0] = i;
+				shape[0][1] = j;
+				tracking(i,j,1);
 			}
 		
 		System.out.println(ans);
