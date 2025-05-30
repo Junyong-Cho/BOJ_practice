@@ -4,77 +4,81 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 import java.util.Arrays;
 
-public class Main {
+public class Main{
 	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringTokenizer st;
-	static int ans, k, max;
-	static char num[], temp[];
+	static char num[];
+	static int k, maxid;
 	
 	static public void main(String catchsunpie[]) throws IOException{
 		st = new StringTokenizer(br.readLine());
 		
 		num = st.nextToken().toCharArray();
-		temp = num.clone();
-		
-		Arrays.sort(temp);
-		
-		max = 0;
-		
-		for(int i = temp.length-1; i >= 0; i--)
-			max = (max<<3) + (max<<1) + (temp[i]&0b1111);
 		
 		k = Integer.parseInt(st.nextToken());
 		
-		boolean check = true;
-		for(int i = 1; i < num.length; i++) {
-			check = num[i]=='0'&&check;
-		}
-		
-		if(num.length==1||check) {
+		if(num.length==1||(num.length==2&&num[1]=='0')) {
 			System.out.println(-1);
 			return;
 		}
 		
-		tracking(0);
+		int t = 0;
 		
-		System.out.println(ans);
-	}
-	
-	static void tracking(int count) {
-		if(count==k) {
-			ans = max(ans,toInt());
-			if(max==ans) {
-				System.out.println(ans);
-				System.exit(0);
+		while(true) {
+			maxid = t;
+			int samecount = 1;
+			for(int i = t+1; i < num.length; i++)
+				if(num[maxid]<num[i]) {
+					maxid = i;
+					samecount = 1;
+				}
+				else if(num[maxid]==num[i]) {
+					maxid = i;
+					samecount++;
+				}
+			if(maxid==t||num[maxid]==num[t]) t++;
+			else if(samecount==1||k==1) {
+				swap(t,maxid);
+				t++;
+				k--;
 			}
-			return;
+			else {
+				int sameids[] = new int[k<samecount?k:samecount];
+				int size = 1;
+				sameids[0] = maxid;
+				
+				for(int i = maxid-1; i>=t+k&&size<sameids.length; i--)
+					if(num[maxid]==num[i])
+						sameids[size++] = i;
+				
+				Arrays.sort(num,t,t+size);
+				for(int i = 0; i < size; i++) {
+					swap(t++,sameids[i]);
+					k--;
+				}
+			}
+			
+			if(k==0||t>=num.length) break;
 		}
 		
-		for(int i = 0; i < num.length-1; i++)
-			for(int j = i+1; j < num.length; j++) {
-				swap(i,j);
-				tracking(count+1);
-				swap(i,j);
-			}
-	}
-	
-	static int toInt() {
-		int n = num[0]&0b1111;
+		if(k!=0) {
+
+			for(int i = 1; i < num.length; i++)
+				if(num[i]==num[i-1]) {
+					System.out.println(num);
+					return;
+				}
+			while(k-->0)
+				swap(num.length-1,num.length-2);
+		}
 		
-		for(int i = 1; i < num.length; i++)
-			n = (n<<3) + (n<<1) + (num[i]&0b1111);
-		
-		return n;
+		System.out.println(num);
 	}
 	
 	static void swap(int i, int j) {
 		char c = num[i];
 		num[i] = num[j];
 		num[j] = c;
-	}
-	
-	static int max(int i, int j) {
-		return i>j?i:j;
 	}
 }
