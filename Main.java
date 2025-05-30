@@ -37,7 +37,7 @@ public class Main{
 					maxid = i;
 					samecount++;
 				}
-			if(maxid==t||num[maxid]==num[t]) t++;
+			if(num[maxid]==num[t]) t++;
 			else if(samecount==1||k==1) {
 				swap(t,maxid);
 				t++;
@@ -52,11 +52,27 @@ public class Main{
 					if(num[maxid]==num[i])
 						sameids[size++] = i;
 				
-				Arrays.sort(num,t,t+size);
+				int frontids[][] = new int[size][2];
+				frontids[0][0] = t;
+				frontids[0][1] = num[t];
+				int fsize = 1;
+				
+				for(int i = t+1; i<=t+k&&fsize<size; i++)
+					if(num[i]!=num[maxid]) {
+						frontids[fsize][0] = i;
+						frontids[fsize++][1] = num[i];
+					}
+				
+				Arrays.sort(frontids,0,fsize,(i,j)->{
+					return i[1]-j[1];
+				});
+				
 				for(int i = 0; i < size; i++) {
-					swap(t++,sameids[i]);
+					t = frontids[i][0];
+					swap(t,sameids[i]);
 					k--;
 				}
+				t++;
 			}
 			
 			if(k==0||t>=num.length) break;
@@ -69,7 +85,7 @@ public class Main{
 					System.out.println(num);
 					return;
 				}
-			while(k-->0)
+			if(k%2==1)
 				swap(num.length-1,num.length-2);
 		}
 		
