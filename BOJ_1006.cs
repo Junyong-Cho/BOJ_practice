@@ -1,4 +1,4 @@
-﻿using System.Text;
+﻿using System.Text; 
 using static System.Console;
 
 const int MAX = 200001;
