@@ -101,3 +101,4 @@ public class BOJ_11779 {
 		return n;
 	}
 }
+
