@@ -92,3 +92,4 @@ public class BOJ_2568{
 		return n;
 	}
 }
+
