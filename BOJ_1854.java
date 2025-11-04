@@ -65,3 +65,4 @@ public class BOJ_1854 {
 		return n;
 	}
 }
+
