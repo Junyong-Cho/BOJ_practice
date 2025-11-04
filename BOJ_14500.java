@@ -68,3 +68,4 @@ public class BOJ_14500 {
 		return n;
 	}
 }
+
