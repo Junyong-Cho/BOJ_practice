@@ -2,10 +2,13 @@
 using static System.Console;
 
 int n = nex();
+
 int[] a = new int[n];
-int[][] tree = new int[n << 2][];
+
 for (int i = 0; i < n; i++)
     a[i] = nex();
+
+int[][] tree = new int[n << 2][];
 
 init(0, n - 1, 1);
 
@@ -14,73 +17,91 @@ int m = nex();
 StringBuilder ans = new();
 
 while (m-- > 0)
-    ans.Append($"{get(0, n - 1, nex() - 1, nex() - 1, nex(), 1)}\n");
+    ans.Append($"{get(0, n - 1, 1, nex() - 1, nex() - 1, nex())}\n");
 
 Write(ans);
-long get(int st, int ed, int from, int to, int goal, int idx)
+
+int get(int st, int ed, int idx, int from, int to, int k)
 {
-    if(st==from && ed == to)
-        return tree[idx].Length - binarySearch(tree[idx], goal);
+    if (from == st && to == ed)
+        return tree[idx].Length - binarySearch(tree[idx], k);
+
     int mid = (st + ed) >> 1;
 
-    idx <<= 1;
-
     if (to <= mid)
-        return get(st, mid, from, to, goal, idx);
+        return get(st, mid, idx << 1, from, to, k);
     if (mid < from)
-        return get(mid + 1, ed, from, to, goal, idx + 1);
-
-    long res = get(st, mid, from, mid, goal, idx);
-    res += get(mid + 1, ed, mid + 1, to, goal, idx + 1);
-
-    return res;
+        return get(mid + 1, ed, (idx << 1) + 1, from, to, k);
+    return get(st, mid, idx << 1, from, mid, k)
+        + get(mid + 1, ed, (idx << 1) + 1, mid + 1, to, k);
 }
 
-int binarySearch(int[] tree, int goal)
+int binarySearch(int[] tree, int k)
 {
-    if (goal < tree[0])
-        return 0;
-    if (tree[tree.Length - 1] <= goal)
-        return tree.Length;
-
     int low = 0, high = tree.Length - 1, mid;
+
+    if (k < tree[low])
+        return 0;
+    if (tree[high] <= k)
+        return high + 1;
 
     while (true)
     {
         mid = (low + high) >> 1;
-
-        if (tree[mid] <= goal)
+        if (tree[mid] <= k)
         {
-            if (goal < tree[mid + 1])
+            if (k < tree[mid + 1])
                 return mid + 1;
             low = mid + 1;
         }
         else
         {
-            if (tree[mid - 1] <= goal)
+            if (tree[mid - 1] <= k)
                 return mid;
             high = mid - 1;
         }
     }
 }
 
-void init(int from, int to, int idx)
+void init(int from, int ed, int idx)
 {
-    tree[idx] = new int[to - from + 1];
-
-    for (int i = from; i <= to; i++)
-        tree[idx][i - from] = a[i];
-
-    if (from == to)
+    if (from == ed)
+    {
+        tree[idx] = new int[] { a[from] };
         return;
+    }
 
-    Array.Sort(tree[idx]);
-    int mid = (from + to) >> 1;
+    int mid = (from + ed) >> 1;
 
-    idx <<= 1;
+    init(from, mid, idx << 1);
+    init(mid + 1, ed, (idx << 1) + 1);
 
-    init(from, mid, idx);
-    init(mid + 1, to, idx + 1);
+    tree[idx] = new int[ed - from + 1];
+
+    merge(tree[idx], tree[idx << 1], tree[(idx << 1) + 1]);
+}
+
+void merge(int[] ptree, int[] ltree, int[] rtree)
+{
+    int left = 0, ll = ltree.Length;
+    int right = 0, rl = rtree.Length;
+
+    for (int i = 0; i < ptree.Length; i++)
+    {
+        if (left == ll)
+        {
+            Array.Copy(rtree, right, ptree, i, rl - right);
+            break;
+        }
+        if (right == rl)
+        {
+            Array.Copy(ltree, left, ptree, i, ll - left);
+            break;
+        }
+        ptree[i] =
+            ltree[left] <= rtree[right] ?
+            ltree[left++] : rtree[right++];
+    }
 }
 
 int nex()
