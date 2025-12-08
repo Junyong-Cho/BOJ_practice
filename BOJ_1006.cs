@@ -1,11 +1,12 @@
-﻿using System.Text; 
-using static System.Console;
+StreamWriter ans = new(Console.OpenStandardOutput());
+Stream rd = Console.OpenStandardInput();
+byte[] buff = new byte[1 << 16];
+int len, cur = len = 0;
 
 const int MAX = 200001;
 
 int t = nex(), n, w, a, b, c, m;
 int[,] e, d;
-StringBuilder ans = new();
 
 while (t-- > 0)
 {
@@ -40,7 +41,7 @@ while (t-- > 0)
     else
         d[0, 1] = 2;
 
-    for(int i = 2; i <= n; i++)
+    for (int i = 2; i <= n; i++)
     {
         a = e[0, i - 1] + e[0, i];
         b = e[1, i - 1] + e[1, i];
@@ -69,7 +70,7 @@ while (t-- > 0)
         d[0, 0] = 2;
         d[0, 1] = 2;
         d[1, 1] = 2;
-        for(int i = 2; i < n; i++)
+        for (int i = 2; i < n; i++)
         {
             a = e[0, i - 1] + e[0, i];
             b = e[1, i - 1] + e[1, i];
@@ -99,7 +100,7 @@ while (t-- > 0)
         d[0, 1] = 2;
         d[2, 1] = 2;
 
-        for(int i = 2; i < n; i++)
+        for (int i = 2; i < n; i++)
         {
             a = e[0, i - 1] + e[0, i];
             b = e[1, i - 1] + e[1, i];
@@ -133,7 +134,7 @@ while (t-- > 0)
 
         d[0, 1] = 2;
         d[3, 1] = 2;
-        for(int i = 2; i < n; i++)
+        for (int i = 2; i < n; i++)
         {
             a = e[0, i - 1] + e[0, i];
             b = e[1, i - 1] + e[1, i];
@@ -159,13 +160,26 @@ while (t-- > 0)
         m = min(m, d[0, n]);
     }
 
-    ans.Append($"{m}\n");
+    ans.Write(m);
+    ans.Write('\n');
 }
 
-Write(ans);
+ans.Flush();
 
 int min(int i, int j) => i < j ? i : j;
 int minRange(int a, int b, int c, int d, int e) => min(min(a, b), min(c, min(d, e)));
+
+int Read()
+{
+    if (len == cur)
+    {
+        cur = 0;
+        len = rd.Read(buff, 0, buff.Length);
+    }
+
+    return buff[cur++];
+}
+
 int nex()
 {
     int n, c;
