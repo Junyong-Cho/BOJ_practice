@@ -1,5 +1,7 @@
-﻿using System.Text;
-using static System.Console;
+﻿Stream rd = Console.OpenStandardInput();
+StreamWriter ans = new(Console.OpenStandardOutput(), bufferSize: 1 << 16);
+byte[] buff = new byte[1 << 16];
+int len = 0, cur = 0;
 
 int n = nex();
 
@@ -14,12 +16,13 @@ init(0, n - 1, 1);
 
 int m = nex();
 
-StringBuilder ans = new();
-
 while (m-- > 0)
-    ans.Append($"{get(0, n - 1, 1, nex() - 1, nex() - 1, nex())}\n");
+{
+    ans.Write(get(0, n - 1, 1, nex() - 1, nex() - 1, nex()));
+    ans.Write('\n');
+}
 
-Write(ans);
+ans.Flush();
 
 int get(int st, int ed, int idx, int from, int to, int k)
 {
@@ -102,6 +105,17 @@ void merge(int[] ptree, int[] ltree, int[] rtree)
             ltree[left] <= rtree[right] ?
             ltree[left++] : rtree[right++];
     }
+}
+
+int Read()
+{
+    if (len == cur)
+    {
+        cur = 0;
+        len = rd.Read(buff, 0, buff.Length);
+    }
+
+    return buff[cur++];
 }
 
 int nex()
