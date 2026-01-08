@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Arrays;
 
-public class BOJ_1266{
+public class BOJ_01266{
 	
 	static class Node{
 		Node next;
