@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class BOJ_2533{
+public class BOJ_02533{
 	
 	static class Node{
 		boolean visit, early;
