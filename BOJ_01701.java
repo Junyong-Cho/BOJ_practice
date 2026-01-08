@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class BOJ_1701{
+public class BOJ_01701{
 	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static int n, p[], ans;
