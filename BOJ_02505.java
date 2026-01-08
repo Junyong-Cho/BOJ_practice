@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class BOJ_2505 {
+public class BOJ_02505 {
 	
 	static int n, a[], lp, rp, i, j;
 	static StringBuilder sb;
