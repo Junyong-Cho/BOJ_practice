@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Arrays;
 
-public class BOJ_2188{
+public class BOJ_02188{
 	
 	static int n, m, ans, cow[][], room[], visit[], turn;
 	
