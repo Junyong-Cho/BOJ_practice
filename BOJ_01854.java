@@ -4,7 +4,7 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class BOJ_1854 {
+public class BOJ_01854 {
 	
 	static int n,m,k,nodes[][], ans[][], count = 0;
 	static final int INF = 1000001;
