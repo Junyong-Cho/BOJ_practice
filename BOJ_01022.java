@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;
 
-public class BOJ_1022{
+public class BOJ_01022{
 	
 	static int r1,r2,c1,c2, grid[][];
 	static boolean tonado[][];
