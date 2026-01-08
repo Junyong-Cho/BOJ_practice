@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.PriorityQueue;
 
-public class BOJ_1766 {
+public class BOJ_01766 {
 	
 	static StringBuilder ans = new StringBuilder();
 	static int n, m;
