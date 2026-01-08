@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class BOJ_1107 {
+public class BOJ_01107 {
 	
 	static int n, m, ans;
 	static boolean broken[] = new boolean[10];
