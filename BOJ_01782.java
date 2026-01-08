@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class BOJ_1782{
+public class BOJ_01782{
 	
 	static public void main(String catchsunpie[]) throws IOException{
 		System.out.println(-mirror(nex()-1)+mirror(nex()));
