@@ -1,7 +1,7 @@
 import java.io.IOException; 
 import java.util.Arrays;
 
-public class BOJ_1017{
+public class BOJ_01017{
 	
 	static StringBuilder ans = new StringBuilder();
 	static int n, a[], b[], ac, bc, visit[], match[], turn;
