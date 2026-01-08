@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class BOJ_9527{
+public class BOJ_09527{
 	
 	static public void main(String catchsunpie[]) throws IOException{
 		System.out.println(-oneSearch(nex()-1)+oneSearch(nex()));
