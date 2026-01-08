@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.HashSet;
 
-public class BOJ_1039{
+public class BOJ_01039{
 	
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static Queue<int[]> q = new LinkedList<>();
