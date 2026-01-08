@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Arrays;
 
-public class BOJ_2568{
+public class BOJ_02568{
 	
 	static int n, line[][], lis;
 	static Node bound[];
