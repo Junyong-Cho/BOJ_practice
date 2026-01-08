@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.Queue;
 import java.util.LinkedList;
 
-public class BOJ_1035 {
+public class BOJ_01035 {
 	
 	static int board[][][], ans = 300;
 	static int stars[][] = new int[5][2], size;
